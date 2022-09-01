@@ -1,0 +1,407 @@
+{% extends "layout.html" %}
+{% block main %}
+<div class="container">
+    <h2>Without SMOTE </h2>
+    <h3>Dataset</h3>
+    <div class="result result-data">
+        <div>
+            <p>{{all_data}}</p>
+            <p>Total Dataset</p>
+        </div>
+        <div>
+            <p>{{all_training}}</p>
+            <p>Training</p>
+        </div>
+        <div>
+            <p>{{all_testing}}</p>
+            <p>Testing</p>
+        </div>
+    </div>
+    <h3>Statistics</h3>
+    <div class="result result-data">
+        <div>
+            <h4>Training</h4>
+            <div class="statistics-item">
+                <div class="prog_bar">
+                    <div class="outer">
+                        <div class="inner">
+                            <div class="accuracy">
+                                <p>{{accuracy_training}}%</p>
+                            </div>
+                        </div>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
+                        <circle cx="80" cy="80" r="70" stroke-linecap="round" />
+                    </svg>
+                </div>
+                <h3>Accuracy</h3>
+            </div>
+        </div>
+        <table id="table">
+            <tr>
+                <th class="bold">Sentiment</th>
+                <th class="bold">Precision</th>
+                <th class="bold">Recall</th>
+                <th class="bold">f1-score</th>
+            </tr>
+            <tr>
+                <th>Positive</th>
+                <td>{{precision_train_pos}}</td>
+                <td>{{recall_train_pos}}</td>
+                <td>{{f1score_train_pos}}</td>
+            </tr>
+            <tr>
+                <th>Neutral</th>
+                <td>{{precision_train_neutral}}</td>
+                <td>{{recall_train_neutral}}</td>
+                <td>{{f1score_train_neutral}}</td>
+            </tr>
+            <tr>
+                <th>Negative</th>
+                <td>{{precision_train_neg}}</td>
+                <td>{{recall_train_neg}}</td>
+                <td>{{f1score_train_neg}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="result result-data">
+        <div>
+            <h4>Testing</h4>
+            <div class="statistics-item">
+                <div class="prog_bar">
+                    <div class="outer">
+                        <div class="inner">
+                            <div class="accuracy">
+                                <p>{{accuracy_testing}}%</p>
+                            </div>
+                        </div>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
+                        <circle cx="80" cy="80" r="70" stroke-linecap="round" />
+                    </svg>
+                </div>
+                <h3>Accuracy</h3>
+            </div>
+        </div>
+        <table id="table">
+            <tr>
+                <th class="bold">Sentiment</th>
+                <th class="bold">Precision</th>
+                <th class="bold">Recall</th>
+                <th class="bold">f1-score</th>
+            </tr>
+            <tr>
+                <th>Positive</th>
+                <td>{{precision_test_pos}}</td>
+                <td>{{recall_test_pos}}</td>
+                <td>{{f1score_test_pos}}</td>
+            </tr>
+            <tr>
+                <th>Neutral</th>
+                <td>{{precision_test_neutral}}</td>
+                <td>{{recall_test_neutral}}</td>
+                <td>{{f1score_test_neutral}}</td>
+            </tr>
+            <tr>
+                <th>Negative</th>
+                <td>{{precision_test_neg}}</td>
+                <td>{{recall_test_neg}}</td>
+                <td>{{f1score_test_neg}}</td>
+            </tr>
+        </table>
+    </div>
+    <h3>Confusion Matrix</h3>
+    <div class="result result-data" style="display: flex; flex-direction: column;">
+        <h4>Training</h4>
+        <div class="confusion-matrix">
+            <div class="matrix-item">
+                <p class="neg">{{matrix_without_smote_train[0][0]}}</p>
+                <h3 class="neg">True Negative(TN<sub>NN</sub>)</h3>
+            </div>
+            <div class="matrix-item">
+                <p>{{matrix_without_smote_train[0][1]}}</p>
+                <h3>False Negative(FN<sub>NNeu</sub>)</h3>
+            </div>
+            <div class="matrix-item">
+                <p>{{matrix_without_smote_train[0][2]}}</p>
+                <h3>False Negative(FN<sub>NP</sub>)</h3>
+            </div>
+        </div>
+        <div class="confusion-matrix">
+            <div class="matrix-item">
+                <p>{{matrix_without_smote_train[1][0]}}</p>
+                <h3>False Neutral(FNeu<sub>NeuN</sub>)</h3>
+            </div>
+            <div class="matrix-item">
+                <p class="neutral">{{matrix_without_smote_train[1][1]}}</p>
+                <h3 class="neutral">True Neutral(TNeu<sub>NeuNeu</sub>)</h3>
+            </div>
+            <div class="matrix-item">
+                <p>{{matrix_without_smote_train[1][2]}}</p>
+                <h3>False Neutral(FNeu<sub>NeuP</sub>)</h3>
+            </div>
+        </div>
+        <div class="confusion-matrix">
+            <div class="matrix-item">
+                <p>{{matrix_without_smote_train[2][0]}}</p>
+                <h3>False Positive(FP<sub>PN</sub>)</h3>
+            </div>
+            <div class="matrix-item">
+                <p>{{matrix_without_smote_train[2][1]}}</p>
+                <h3>False Positive(FP<sub>PNeu</sub>)</h3>
+            </div>
+            <div class="matrix-item">
+                <p class="pos">{{matrix_without_smote_train[2][2]}}</p>
+                <h3 class="pos">True Positive(TP<sub>PP</sub>)</h3>
+            </div>
+        </div>
+    </div>
+    <div class="result result-data" style="display: flex; flex-direction: column;">
+        <h4>Testing</h4>
+        <div class="confusion-matrix">
+            <div class="matrix-item">
+                <p class="neg">{{matrix_without_smote_test[0][0]}}</p>
+                <h3 class="neg">True Negative(TN<sub>NN</sub>)</h3>
+            </div>
+            <div class="matrix-item">
+                <p>{{matrix_without_smote_test[0][1]}}</p>
+                <h3>False Negative(FN<sub>NNeu</sub>)</h3>
+            </div>
+            <div class="matrix-item">
+                <p>{{matrix_without_smote_test[0][2]}}</p>
+                <h3>False Negative(FN<sub>NP</sub>)</h3>
+            </div>
+        </div>
+        <div class="confusion-matrix">
+            <div class="matrix-item">
+                <p>{{matrix_without_smote_test[1][0]}}</p>
+                <h3>False Neutral(FNeu<sub>NeuN</sub>)</h3>
+            </div>
+            <div class="matrix-item">
+                <p class="neutral">{{matrix_without_smote_test[1][1]}}</p>
+                <h3 class="neutral">True Neutral(TNeu<sub>NeuNeu</sub>)</h3>
+            </div>
+            <div class="matrix-item">
+                <p>{{matrix_without_smote_test[1][2]}}</p>
+                <h3>False Neutral(FNeu<sub>NeuP</sub>)</h3>
+            </div>
+        </div>
+        <div class="confusion-matrix">
+            <div class="matrix-item">
+                <p>{{matrix_without_smote_test[2][0]}}</p>
+                <h3>False Positive(FP<sub>PN</sub>)</h3>
+            </div>
+            <div class="matrix-item">
+                <p>{{matrix_without_smote_test[2][1]}}</p>
+                <h3>False Positive(FP<sub>PNeu</sub>)</h3>
+            </div>
+            <div class="matrix-item">
+                <p class="pos">{{matrix_without_smote_test[2][2]}}</p>
+                <h3 class="pos">True Positive(TP<sub>PP</sub>)</h3>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <h2>SMOTE </h2>
+    <h3>Dataset</h3>
+    <div class="result result-data">
+        <div>
+            <p>{{all_data_smote}}</p>
+            <p>Total Dataset</p>
+        </div>
+        <div>
+            <p>{{all_training_smote}}</p>
+            <p>Training</p>
+        </div>
+        <div>
+            <p>{{all_testing_smote}}</p>
+            <p>Testing</p>
+        </div>
+    </div>
+    <h3>Statistics</h3>
+    <div class="result result-data">
+        <div>
+            <h4>Training</h4>
+            <div class="statistics-item">
+                <div class="prog_bar">
+                    <div class="outer">
+                        <div class="inner">
+                            <div class="accuracy">
+                                <p>{{accuracy_training_smote}}%</p>
+                            </div>
+                        </div>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
+                        <circle cx="80" cy="80" r="70" stroke-linecap="round" />
+                    </svg>
+                </div>
+                <h3>Accuracy</h3>
+            </div>
+        </div>
+        <table id="table">
+            <tr>
+                <th class="bold">Sentiment</th>
+                <th class="bold">Precision</th>
+                <th class="bold">Recall</th>
+                <th class="bold">f1-score</th>
+            </tr>
+            <tr>
+                <th>Positive</th>
+                <td>{{precision_train_smote_pos}}</td>
+                <td>{{recall_train_smote_pos}}</td>
+                <td>{{f1score_train_smote_pos}}</td>
+            </tr>
+            <tr>
+                <th>Neutral</th>
+                <td>{{precision_train_smote_neutral}}</td>
+                <td>{{recall_train_smote_neutral}}</td>
+                <td>{{f1score_train_smote_neutral}}</td>
+            </tr>
+            <tr>
+                <th>Negative</th>
+                <td>{{precision_train_smote_neg}}</td>
+                <td>{{recall_train_smote_neg}}</td>
+                <td>{{f1score_train_smote_neg}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="result result-data">
+        <div>
+            <h4>Testing</h4>
+            <div class="statistics-item">
+                <div class="prog_bar">
+                    <div class="outer">
+                        <div class="inner">
+                            <div class="accuracy">
+                                <p>{{accuracy_testing_smote}}%</p>
+                            </div>
+                        </div>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
+                        <circle cx="80" cy="80" r="70" stroke-linecap="round" />
+                    </svg>
+                </div>
+                <h3>Accuracy</h3>
+            </div>
+        </div>
+        <table id="table">
+            <tr>
+                <th class="bold">Sentiment</th>
+                <th class="bold">Precision</th>
+                <th class="bold">Recall</th>
+                <th class="bold">f1-score</th>
+            </tr>
+            <tr>
+                <th>Positive</th>
+                <td>{{precision_test_smote_pos}}</td>
+                <td>{{recall_test_smote_pos}}</td>
+                <td>{{f1score_test_smote_pos}}</td>
+            </tr>
+            <tr>
+                <th>Neutral</th>
+                <td>{{precision_test_smote_neutral}}</td>
+                <td>{{recall_test_smote_neutral}}</td>
+                <td>{{f1score_test_smote_neutral}}</td>
+            </tr>
+            <tr>
+                <th>Negative</th>
+                <td>{{precision_test_smote_neg}}</td>
+                <td>{{recall_test_smote_neg}}</td>
+                <td>{{f1score_test_smote_neg}}</td>
+            </tr>
+        </table>
+    </div>
+    <h3>Confusion Matrix</h3>
+    <div class="result result-data" style="display: flex; flex-direction: column;">
+        <h4>Training</h4>
+        <div class="confusion-matrix">
+            <div class="matrix-item">
+                <p class="neg">{{matrix_smote_train[0][0]}}</p>
+                <h3 class="neg">True Negative(TN<sub>NN</sub>)</h3>
+            </div>
+            <div class="matrix-item">
+                <p>{{matrix_smote_train[0][1]}}</p>
+                <h3>False Negative(FN<sub>NNeu</sub>)</h3>
+            </div>
+            <div class="matrix-item">
+                <p>{{matrix_smote_train[0][2]}}</p>
+                <h3>False Negative(FN<sub>NP</sub>)</h3>
+            </div>
+        </div>
+        <div class="confusion-matrix">
+            <div class="matrix-item">
+                <p>{{matrix_smote_train[1][0]}}</p>
+                <h3>False Neutral(FNeu<sub>NeuN</sub>)</h3>
+            </div>
+            <div class="matrix-item">
+                <p class="neutral">{{matrix_smote_train[1][1]}}</p>
+                <h3 class="neutral">True Neutral(TNeu<sub>NeuNeu</sub>)</h3>
+            </div>
+            <div class="matrix-item">
+                <p>{{matrix_smote_train[1][2]}}</p>
+                <h3>False Neutral(FNeu<sub>NeuP</sub>)</h3>
+            </div>
+        </div>
+        <div class="confusion-matrix">
+            <div class="matrix-item">
+                <p>{{matrix_smote_train[2][0]}}</p>
+                <h3>False Positive(FP<sub>PN</sub>)</h3>
+            </div>
+            <div class="matrix-item">
+                <p>{{matrix_smote_train[2][1]}}</p>
+                <h3>False Positive(FP<sub>PNeu</sub>)</h3>
+            </div>
+            <div class="matrix-item">
+                <p class="pos">{{matrix_smote_train[2][2]}}</p>
+                <h3 class="pos">True Positive(TP<sub>PP</sub>)</h3>
+            </div>
+        </div>
+    </div>
+    <div class="result result-data" style="display: flex; flex-direction: column;">
+        <h4>Testing</h4>
+        <div class="confusion-matrix">
+            <div class="matrix-item">
+                <p class="neg">{{matrix_smote_test[0][0]}}</p>
+                <h3 class="neg">True Negative(TN<sub>NN</sub>)</h3>
+            </div>
+            <div class="matrix-item">
+                <p>{{matrix_smote_test[0][1]}}</p>
+                <h3>False Negative(FN<sub>NNeu</sub>)</h3>
+            </div>
+            <div class="matrix-item">
+                <p>{{matrix_smote_test[0][2]}}</p>
+                <h3>False Negative(FN<sub>NP</sub>)</h3>
+            </div>
+        </div>
+        <div class="confusion-matrix">
+            <div class="matrix-item">
+                <p>{{matrix_smote_test[1][0]}}</p>
+                <h3>False Neutral(FNeu<sub>NeuN</sub>)</h3>
+            </div>
+            <div class="matrix-item">
+                <p class="neutral">{{matrix_smote_test[1][1]}}</p>
+                <h3 class="neutral">True Neutral(TNeu<sub>NeuNeu</sub>)</h3>
+            </div>
+            <div class="matrix-item">
+                <p>{{matrix_smote_test[1][2]}}</p>
+                <h3>False Neutral(FNeu<sub>NeuP</sub>)</h3>
+            </div>
+        </div>
+        <div class="confusion-matrix">
+            <div class="matrix-item">
+                <p>{{matrix_smote_test[2][0]}}</p>
+                <h3>False Positive(FP<sub>PN</sub>)</h3>
+            </div>
+            <div class="matrix-item">
+                <p>{{matrix_smote_test[2][1]}}</p>
+                <h3>False Positive(FP<sub>PNeu</sub>)</h3>
+            </div>
+            <div class="matrix-item">
+                <p class="pos">{{matrix_smote_test[2][2]}}</p>
+                <h3 class="pos">True Positive(TP<sub>PP</sub>)</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

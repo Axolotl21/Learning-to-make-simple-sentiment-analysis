@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block main %}
+<div class="container">
+  <form class="" action = "/text/result_text" method="POST">
+    <div >
+      <label for="">Test with your own text:</label>
+      <div class="">
+        <input type="text" class="" id="" name="data">
+        <input type="submit" name="submit" class="button">
+      </div>
+    </div>
+  </form>
+</div>
+{% if result != "" %}
+  <div class="container">
+    <h2>Result </h2>
+    <div class="result flex">
+      <h3>Data Preprocessing</h3>
+      <p>{{result}}</p>
+    </div>
+    <div class="result">
+      <div class="part-result">
+        <h3>Sentiment</h3>
+        <figure>
+          {% if pred == "pos" %}
+          <img src="{{url_for('static', filename='images/positive_img.png')}}" alt="positive_img">
+          <figcaption><p class="pos">Positive</p></figcaption>
+          {% elif pred =="neg" %}
+          <img src="{{url_for('static', filename='images/negative_img.png')}}" alt="negative_img">
+          <figcaption><p class="neg">Negative</p></figcaption>
+          {% elif pred =="neutral" %}
+          <img src="{{url_for('static', filename='images/neutral_img.png')}}" alt="neutral_img">
+          <figcaption><p class="neutral">Neutral</p></figcaption>
+          {% endif %}
+        </figure>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% endblock %}

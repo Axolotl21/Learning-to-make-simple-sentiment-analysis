@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename= 'css/style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="shortcut icon" href="{{ url_for('static', filename= 'ico/favicon.ico') }}" type="image/x-icon">
+  <title>Predicted Twitter Sentiment</title>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <h1>Skripsi</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="/"><i class="fa fa-book"></i>Lexicon</a></li>
+        <li><a href="/nbc"><i class="fa fa-code"></i>NBC</a></li>
+        <div class="dropdown">
+          <li><a href="#"><i class="fa fa-check-square-o"></i>Demo</a></li>
+            <div class="dropdown-content">
+              <a href="/text"><i class="fa fa-font"></i>Text</a>
+              <a href="/document"><i class="fa 	fa fa-file-text-o"></i>Document</a>
+            </div>
+        </div>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    {% block main %}{% endblock %}
+  </main>
+</body>
+</html>

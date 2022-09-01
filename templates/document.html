@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block main %}
+<div class="container">
+    <form class="" action = "/show_document" method="POST" enctype="multipart/form-data">
+        <div class="form-doc">
+            <label class="" for="files">Test with your own document:</label>
+            <input type="file" id="files" name="doc_data" accept=".csv, .xlsx, .xls" required >
+            <input type="submit" name="submit" class="button">
+        </div>
+    </form>
+</div>
+{% if table != [] %}
+<div class="container">
+    <h2>Data </h2>
+    <div class=" container-table">
+        <table border="1" class="table">
+            {% for row in table %}
+            <tr class="table-row">
+                {% for cell in row%}
+                <td class="table-cell">{{cell}}</td>
+                {% endfor %}
+            </tr>   
+            {% endfor %}
+        </table>
+    </div>
+</div>
+<div class="container">
+    <h2>Processing</h2>
+    <form action="/result_document" method="POST">
+        <label for="attribute">Choose attribute to classify: </label>
+        <div class="select">
+            <select name="attribute" id="">
+            {% for i in range(length_att) %}
+                <option value="{{table[0][i]}}">{{table[0][i]}}</option>
+            {% endfor %}
+            </select>
+        </div>
+        <label for="label">Choose label: </label>
+        <div class="select">
+            <select name="label" id="">
+            {% for i in range(length_att) %}
+                <option value="{{table[0][i]}}">{{table[0][i]}}</option>
+            {% endfor %}
+            </select>
+        </div>
+        <input type="hidden" value="{{filepath}}" name="hidden">
+        <input type="hidden" value="{{nama_file}}" name="nama_file">
+        <input type="submit" name="submit" class="button">
+    </form>
+</div>
+{% endif %}
+{% endblock %}

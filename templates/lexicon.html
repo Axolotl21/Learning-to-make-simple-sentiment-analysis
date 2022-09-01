@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block main %}
+<div class="container">
+    <h2>Preprocessing </h2>
+    <div class=" container-table">
+        <table border="1" class="table">
+            {% for row in processing %}
+            <tr class="table-row">
+                {% for cell in row%}
+                <td class="table-cell">{{cell}}</td>
+                {% endfor %}
+            </tr>   
+            {% endfor %}
+        </table>
+    </div>
+</div>
+<div class="container">
+    <h2>Lexicon </h2>
+    <div class=" container-table">
+        <table border="1" class="table">
+            {% for row in lexicon %}
+            <tr class="table-row">
+                {% for cell in row%}
+                <td class="table-cell">{{cell}}</td>
+                {% endfor %}
+            </tr>   
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+{% block main %}
+
+<div class="container">
+    <h2>Data Preprocessing </h2>
+    <div class="container-table">
+        <table border="1" class="table">
+            <tr class="table-row">
+                {% for col in column_names %}
+                <th>{{col}}</th>
+                {% endfor %}
+            </tr>
+            {% for row in row_data %}
+            <tr class="table-row">
+                {% for col, row_ in zip(column_names,row) %}
+                <td>{{row_}}</td>
+                {% endfor %}            
+            </tr>   
+            {% endfor %}
+        </table>
+    </div>
+</div>
+<div class="container">
+    <h2>Statistics </h2>
+    <div class="result result-data">
+        <div>
+            <h4>Training</h4>
+            <div class="statistics-item">
+                <div class="prog_bar">
+                    <div class="outer">
+                        <div class="inner">
+                            <div class="accuracy">
+                                <p>{{accuracy}}%</p>
+                            </div>
+                        </div>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
+                        <circle cx="80" cy="80" r="70" stroke-linecap="round" />
+                    </svg>
+                </div>
+                <h3>Accuracy</h3>
+            </div>
+        </div>
+        <table id="table">
+            <tr>
+                <th class="bold">Sentiment</th>
+                <th class="bold">Precision</th>
+                <th class="bold">Recall</th>
+                <th class="bold">f1-score</th>
+            </tr>
+            <tr>
+                <th>Positive</th>
+                <th>{{precision_positif}}</th>
+                <th>{{recall_positif}}</th>
+                <th>{{f1_score_pos}}</th>
+            </tr>
+            <tr>
+                <th>Neutral</th>
+                <th>{{precision_netral}}</th>
+                <th>{{recall_netral}}</th>
+                <th>{{f1_score_netral}}</th>
+            </tr>
+            <tr>
+                <th>Negative</th>
+                <th>{{precision_negatif}}</th>
+                <th>{{recall_negatif}}</th>
+                <th>{{f1_score_neg}}</th>
+            </tr>
+        </table>
+    </div>
+    <div class="result result-data" style="display: flex; flex-direction: column;">
+        <div class="confusion-matrix">
+            <div class="matrix-item">
+                <p class="pos">{{tabel_conf[2][2]}}</p>
+                <h3 class="pos">True Positive(TP<sub>PP</sub>)</h3>
+            </div>
+            <div class="matrix-item">
+                <p class="neutral">{{tabel_conf[1][1]}}</p>
+                <h3 class="neutral">True Neutral(TNeu<sub>NeuNeu</sub>)</h3>
+            </div>
+            <div class="matrix-item">
+                <p class="neg">{{tabel_conf[0][0]}}</p>
+                <h3 class="neg">True Negative(TN<sub>NN</sub>)</h3>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <h2>Word Cloud</h2>
+    <img src="{{url_for('static', filename='file/wordcloud/%s_wordcloud.jpg' %nama_file)}}" alt="Wordcloud">
+</div>
+<p>{{prediction}}</p>
+{% endblock %}
